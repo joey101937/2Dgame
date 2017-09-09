@@ -6,6 +6,7 @@
 package Units;
 
 import GameObjects.Projectiles.*;
+import pkg2dgame.AudioManager;
 import pkg2dgame.Game;
 import pkg2dgame.GameObject;
 
@@ -34,7 +35,10 @@ public enum Weapon {
         public boolean targetsAir() {
             return false;
         }
-    },cannon() { 
+        /**
+         * slow firing but high damage projectile
+         */
+    },cannon() { ///////////////////////////////////////////////////////////////////////////
         @Override
         public void fire(Unit user, Unit target) {
             if (user.pf.getDistanceFrom(target) <= this.getRange()) {
@@ -43,6 +47,7 @@ public enum Weapon {
                         Game.handler.getObjects().add(new Cannonball(user.x, user.y, 20, target));
                         user.muzzelFlashDuration = 10;  //crateds muzzel flash
                         user.weaponCooldown = 80; //30
+                        AudioManager.Play("cannonLaunch3.mp3");
                     } else {
                         user.weaponCooldown--;
                     }
@@ -69,15 +74,19 @@ public enum Weapon {
         public boolean targetsAir() {
             return false;
         }
-    }, lazer(){
+        /**
+         * fast firing, short range AG and AA
+         */
+    }, lazer(){ /////////////////////////////////////////////////////////////////////
 
         @Override
         public void fire(Unit user, Unit target) {
            if (user.pf.getDistanceFrom(target) <= this.getRange()) {
                     if (user.weaponCooldown == 0) {
                         Game.handler.getObjects().add(new LazerBeam(user.x, user.y, 5, target));
-                        user.muzzelFlashDuration = 10;  //crateds muzzel flash
+                        user.muzzelFlashDuration = 10;  //creats muzzel flash
                         user.weaponCooldown = 30;
+                       AudioManager.Play("lazerFire.mp3");
                     } else {
                         user.weaponCooldown--;
                     }
@@ -88,6 +97,45 @@ public enum Weapon {
                     user.pf.setDestination(target.x, target.y);     //if out of range, close in on target
                     user.pf.move();
                 }
+        }
+
+        @Override
+        public int getRange() {
+            return 1000;
+        }
+
+        @Override
+        public boolean targetsGround() {
+            return true;
+        }
+
+        @Override
+        public boolean targetsAir() {
+            return true;
+        }
+ }, 
+    /**
+     * fast firing instant dmg weapon with fair range, AG and AA
+    */
+    autocannon(){
+        @Override
+        public void fire(Unit user, Unit target) {
+            if (user.pf.getDistanceFrom(target) <= this.getRange()) {
+                if (user.weaponCooldown == 0) {
+                    target.health -= 5;
+                    user.muzzelFlashDuration = 15;  //creats muzzel flash
+                    user.weaponCooldown = 30;
+                    AudioManager.Play("machinegun.mp3");
+                } else {
+                    user.weaponCooldown--;
+                }
+
+                user.setVelX(0);
+                user.setVelY(0);
+            } else {
+                user.pf.setDestination(target.x, target.y);     //if out of range, close in on target
+                user.pf.move();
+            }
         }
 
         @Override
@@ -104,7 +152,7 @@ public enum Weapon {
         public boolean targetsAir() {
             return true;
         }
- };
+    };////////////////////////////////////////////////////////////////////////////////////////////
     
     public int x,y;       
     GameObject target = null;

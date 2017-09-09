@@ -41,12 +41,6 @@ public class Cannonball extends Projectile{
     public Direction lastDir = Direction.up;            //Last non-stopped direction that the object was traveling in. defaults to up.
     
     public abstract void tick();
-    
-    
-    
-    
-    
-    
     */
     
     

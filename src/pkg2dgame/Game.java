@@ -247,11 +247,17 @@ public class Game extends Canvas implements Runnable {
                 handler.addObject(ft);
                 ft.BuildAt(500, 300, 1);
                 return;
-            case 2:
+            case 2: //case 2 is AI vs AI
                 handler.addObject(new BasicFactory(400,800,-1));
                 handler.addObject(new BasicFactory(2600,800,2));
                 return;
-            case 4:
+            case 3://case 3 is a large empty map
+                this.addUnit(new BasicTank(900,500,1));
+                this.addUnit(new AutoTurret(900,400,1));
+                this.addUnit(new BasicTank(1000,800,2));
+                this.addUnit(new Helicopter(1000,9000,2));
+                return;
+            case 4: //case 4 is the unit testing map with water
                 handler.addObject(new BasicTank(900, 100, 2));
                 handler.addObject(new BasicTank(1000, 100, 2));
                 handler.addObject(new BasicTank(1100, 100, 2));
@@ -261,21 +267,18 @@ public class Game extends Canvas implements Runnable {
                 handler.addObject(new BasicTank(400, 800, 1));
                 handler.addObject(new BasicFactory(600, 800, 1));
                 handler.addObject(new FieldTruck(600, 600, 1));
+                addUnit(new AutoTurret(800,600,1));
                 this.addUnit(new Helicopter(900, 900, 1));
                 this.addUnit(new Helicopter(1000, 200, 2));
                 return;
-            case 5:
-                //FieldTruck truck = new FieldTruck(1100,300,1);
+            case 5: //case 5 is PvE on a small map
                 BasicFactory bf = new BasicFactory(500, 300, 1);
                 handler.addObject(new FieldTruck(500,700,1));
-                handler.addObject(bf);
-                
+                handler.addObject(bf);              
                 handler.addObject(new FieldTruck(1200,900,2));
                  handler.addObject(new BasicFactory(1350,900,2));
-                //  handler.addObject(new BasicTank(1500,900,2));
-               // handler.addObject(truck);
                 return;
-            case 6:
+            case 6: //case 6 is PvE on a proper map
                 BasicFactory bf1 = new BasicFactory(350,700,1);
                 FieldTruck ft1 = new FieldTruck (550,700,1);
                 handler.addObject(bf1);

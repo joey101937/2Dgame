@@ -13,6 +13,7 @@ import Units.Unit;
 import Units.Weapon;
 import java.awt.Graphics;
 import java.io.File;
+import pkg2dgame.AudioManager;
 import pkg2dgame.Game;
 import pkg2dgame.Main;
 import pkg2dgame.User;
@@ -83,6 +84,7 @@ public class BasicFactory extends Structure {
             if (this.isOutputClear() && getUser().metal >= this.Products[0].mCost && getUser().oil >= this.Products[0].oCost && this.getUser().hasSupply) {
                 BasicTank t = new BasicTank(this.x + this.width, this.y, this.team.getNumber());
                 this.lastProduced = t;                                      //sets this tank to the last produced unit
+                if(this.isOnScreen())AudioManager.Play("drill.mp3");
                 Game.handler.addObject(t);
                 if (isPathing) {
                     t.setDestinaion(this.pf.destX, this.pf.destY); //if we have a rally set, go to it
@@ -112,6 +114,7 @@ public class BasicFactory extends Structure {
             if (this.isOutputClear() && getUser().metal >= this.Products[1].mCost && getUser().oil >= this.Products[1].oCost && this.getUser().hasSupply) {
                 FieldTruck t = new FieldTruck(this.x + this.width, this.y, this.team.getNumber());
                 this.lastProduced = t;                                      //sets this Product to the last produced unit
+                if(this.isOnScreen())AudioManager.Play("drill.mp3");
                 Game.handler.addObject(t);
                 if (isPathing) {
                     t.setDestinaion(this.pf.destX, this.pf.destY); //if we have a rally set, go to it
@@ -142,6 +145,7 @@ public class BasicFactory extends Structure {
             if (this.isOutputClear() && getUser().metal >= this.Products[2].mCost && getUser().oil >= this.Products[2].oCost && this.getUser().hasSupply) {
                 Helicopter t = new Helicopter(this.x + this.width, this.y, this.team.getNumber());
                 this.lastProduced = t;                                      //sets this Product to the last produced unit
+                if(this.isOnScreen())AudioManager.Play("drill.mp3");
                 Game.handler.addObject(t);
                 if (isPathing) {
                     t.setDestinaion(this.pf.destX, this.pf.destY); //if we have a rally set, go to it

@@ -13,6 +13,7 @@ import Units.Unit;
 import Units.Weapon;
 import java.awt.Graphics;
 import java.io.File;
+import pkg2dgame.AudioManager;
 import pkg2dgame.Game;
 import pkg2dgame.Main;
 import pkg2dgame.User;
@@ -81,12 +82,13 @@ public class FieldTruck extends Unit implements Builder {
         this.getProduct(0);
         if (isOutputClearFT(0) && this.buildTimer < 1 && this.stunTimer < 1) {//not building or stunned
             if (Game.mainGrid.getTileAt(x, y).fertility == 0) {             //make sure we are on plain terrain
-                if (this.getUser().metal >= this.getProduct(0).mCost && this.getUser().oil >= this.getProduct(0).oCost) {
+                if (this.getUser().metal >= this.getProduct(0).mCost && this.getUser().oil >= this.getProduct(0).oCost) { //if we can afford it
                     this.getUser().metal -= this.getProduct(0).mCost;
                     this.getUser().oil -= this.getProduct(0).oCost;
                     BasicFactory bf = new BasicFactory(x, y, team.getNumber());
                     bf.buildTimer = Products[0].buildTimer;
                     Game.handler.addObject(bf);
+                    if(this.isOnScreen())AudioManager.Play("hammering.mp3");
                     this.destroy(false);
                 } else if (!(getUser().metal >= this.Products[0].mCost) || !(getUser().oil >= this.Products[0].oCost)) {
                     if(!isAIOwned)Main.display("You require more resources");
@@ -108,6 +110,7 @@ public class FieldTruck extends Unit implements Builder {
                     OilRig or = new OilRig(x, y, team.getNumber());
                     or.buildTimer = Products[1].buildTimer;
                     Game.handler.addObject(or);
+                    if(this.isOnScreen())AudioManager.Play("hammering.mp3");
                     this.destroy(false);
                 } else if (!(getUser().metal >= this.Products[1].mCost) || !(getUser().oil >= this.Products[1].oCost)) {
                     if(!isAIOwned)Main.display("You require more resources");
@@ -129,6 +132,7 @@ public class FieldTruck extends Unit implements Builder {
                     IronMine or = new IronMine(x, y, team.getNumber());
                     or.buildTimer = Products[2].buildTimer;
                     Game.handler.addObject(or);
+                    if(this.isOnScreen())AudioManager.Play("hammering.mp3");
                     this.destroy(false);
                 }
             } else {

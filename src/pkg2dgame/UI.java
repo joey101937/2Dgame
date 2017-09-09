@@ -318,6 +318,7 @@ public class UI extends javax.swing.JPanel implements Runnable {
                 case "Tank":
                 case "Boat":
                 case "Helicopter":
+                case "AutoTurret":
                     Unit u = (Unit) selected;
                     u.issueStopCommand();
                     return; ///if its a tank, do nothing
@@ -340,6 +341,7 @@ public class UI extends javax.swing.JPanel implements Runnable {
                 case "Tank":
                 case "Boat":
                 case "Helicopter":
+                case "AutoTurret":
                     Game.isAdown = true;
                     return; ///if its a tank, do nothing
                 case "Field Truck":
@@ -364,6 +366,7 @@ public class UI extends javax.swing.JPanel implements Runnable {
                 case "Tank":
                 case "Boat":
                 case "Helicopter":
+                case "AutoTurret":
                     Unit u = (Unit) selected;
                     Game.lookingForTarget = true;
                     return; ///if its a combat unit, this is manual fire mode

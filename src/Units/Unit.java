@@ -112,7 +112,7 @@ public abstract class Unit extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        if (!this.isRenderValidI()) {
+        if (!this.isOnScreen()) {
           // System.out.println("off screen");
             return;          //dont render off screen units
 
@@ -255,6 +255,7 @@ public abstract class Unit extends GameObject {
                 return;
             case lazer:    
             case cannon:
+            case autocannon:
                 this.faceTarget(); //face the target  
                 this.weapon.fire(this, target);
                 break;
@@ -309,6 +310,7 @@ public abstract class Unit extends GameObject {
     public void issueStopCommand() {
         this.setVelX(0);
         this.setVelY(0);
+        this.target = null;
         this.isPathing = false;
     }
     /**
@@ -378,7 +380,7 @@ public abstract class Unit extends GameObject {
      * checks if the unit is on screen
      * @return 
      */
-    public boolean isRenderValidI() {
+    public boolean isOnScreen() {
         if(x<KeyInput.tx){return false;}
         if(x>KeyInput.tx+Game.myMap.camWidth*Tile.SIZE){return false;}
         if(y>KeyInput.ty+Game.myMap.camHeight*Tile.SIZE-Tile.SIZE){return false;}
